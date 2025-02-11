@@ -71,15 +71,18 @@ const filePath = "./DataUser.xlsx";
                         if (success) {
                             console.log(`Registration successful for ${user.Name}`);
                             user.Status = 'Success';
+                            user.Message = 'Registration successful';
                             await updateStatusInLaravel(user.Email, 'Success')
                         } else {
                             console.log(`Registration failed for ${user.Name}`);
                             user.Status = 'Failure';
+                            user.Message = 'Registration failed';
                             await updateStatusInLaravel(user.Email, 'Failure')
                         }
                     } catch (error){
                         console.error(`Error processing user ${user.Name}:`, error);
                         user.Status = 'Failure';
+                        user.Message = error.message;
                     }
                 }
                 await page.reload();
